@@ -1,25 +1,38 @@
 {
-  "projectDomain": "showbiz.baby",
-  "authorName": "Henry Desroches",
-  "authorUrl": "https://henry.codes",
-  "authorGitHubUrl": "https://github.com/xdesro",
-  "authorPhoto": "https://henry.codes/img/headshot-2.jpg",
+  "type": "module",
+  "projectDomain": "shellenposse.netlify.app",
+  "authorName": "Jason Shellen",
+  "authorUrl": "https://shellen.com",
+  "authorGitHubUrl": "https://github.com/shellen",
+  "authorPhoto": "https://www.shellen.com/images/jason-shellen-headshot-bw.png",
   "authorAdr": {
-    "locality": "Denver",
-    "region": "Colorado",
+    "locality": "SF Bay Area",
+    "region": "California",
     "country": "US"
   },
   "scripts": {
-    "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build:css": "postcss css/styles.css -o _site/assets/styles.css",
+    "watch:css": "postcss css/styles.css -o _site/assets/styles.css --watch",
+    "start": "npm run watch:css & npx @11ty/eleventy --serve",
+    "build": "npm run build:css && npx @11ty/eleventy"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.0.0",
     "@octokit/rest": "^20.1.1",
+    "@types/luxon": "^3.4.2",
     "dotenv": "^16.4.5",
     "octokit-commit-multiple-files": "^5.0.2"
   },
   "dependencies": {
-    "@remy/webmention": "^1.0.4"
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@remy/webmention": "^1.5.0",
+    "@sindresorhus/slugify": "^2.2.1",
+    "autoprefixer": "^10.4.20",
+    "luxon": "^3.5.0",
+    "node-fetch": "^3.3.2",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.14"
   }
 }

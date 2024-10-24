@@ -1,0 +1,97 @@
+<nav class="z-50">
+  <div class="container mx-auto flex items-center justify-between p-4">
+    <a href="/">
+      <img src="https://www.shellen.com/assets/images/shellen-logo-2018.svg" class="w-36 rounded-md md:w-48" alt="Logo" />
+    </a>
+
+    <div class="flex items-center">
+      <!-- Desktop Menu -->
+      <ul class="hidden sm:flex items-center space-x-4 mr-4">
+        {% if collections and collections.all %}
+          {% set navigationEntries = collections.all | eleventyNavigation([]) %}
+          {% if navigationEntries.length > 0 %}
+            {% for entry in navigationEntries %}
+              <li><a href="{{ entry.url }}" class="text-zinc-800 hover:text-sky-500{% if entry.url == page.url %} font-bold{% endif %}">{{ entry.title }}</a></li>
+            {% endfor %}
+          {% else %}
+            <li>No items found in navigation.</li>
+          {% endif %}
+        {% else %}
+          <li>Navigation data is unavailable.</li>
+        {% endif %}
+      </ul>
+
+      <!-- Hamburger Menu Button -->
+      <button id="menu-toggle" class="text-sky-950 z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12" />
+          <line x1="4" x2="20" y1="6" y2="6" />
+          <line x1="4" x2="20" y1="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Full Screen Menu -->
+  <div id="full-screen-menu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="relative h-full flex flex-col items-center justify-center text-3xl space-y-8">
+      {% if navigationEntries.length > 0 %}
+        {% for entry in navigationEntries %}
+          <a href="{{ entry.url }}" class="text-black hover:text-sky-600">{{ entry.title }}</a>
+        {% endfor %}
+      {% else %}
+        <p>No items available in the navigation.</p>
+      {% endif %}
+      <!-- Social Links Section -->
+     <a href="https://threads.net/@shellen" target="_blank" class="text-black hover:text-sky-600 flex items-center">
+      <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 448 512"><path d="M331.5 235.7c2.2 .9 4.2 1.9 6.3 2.8c29.2 14.1 50.6 35.2 61.8 61.4c15.7 36.5 17.2 95.8-30.3 143.2c-36.2 36.2-80.3 52.5-142.6 53h-.3c-70.2-.5-124.1-24.1-160.4-70.2c-32.3-41-48.9-98.1-49.5-169.6V256v-.2C17 184.3 33.6 127.2 65.9 86.2C102.2 40.1 156.2 16.5 226.4 16h.3c70.3 .5 124.9 24 162.3 69.9c18.4 22.7 32 50 40.6 81.7l-40.4 10.8c-7.1-25.8-17.8-47.8-32.2-65.4c-29.2-35.8-73-54.2-130.5-54.6c-57 .5-100.1 18.8-128.2 54.4C72.1 146.1 58.5 194.3 58 256c.5 61.7 14.1 109.9 40.3 143.3c28 35.6 71.2 53.9 128.2 54.4c51.4-.4 85.4-12.6 113.7-40.9c32.3-32.2 31.7-71.8 21.4-95.9c-6.1-14.2-17.1-26-31.9-34.9c-3.7 26.9-11.8 48.3-24.7 64.8c-17.1 21.8-41.4 33.6-72.7 35.3c-23.6 1.3-46.3-4.4-63.9-16c-20.8-13.8-33-34.8-34.3-59.3c-2.5-48.3 35.7-83 95.2-86.4c21.1-1.2 40.9-.3 59.2 2.8c-2.4-14.8-7.3-26.6-14.6-35.2c-10-11.7-25.6-17.7-46.2-17.8H227c-16.6 0-39 4.6-53.3 26.3l-34.4-23.6c19.2-29.1 50.3-45.1 87.8-45.1h.8c62.6 .4 99.9 39.5 103.7 107.7l-.2 .2zm-156 68.8c1.3 25.1 28.4 36.8 54.6 35.3c25.6-1.4 54.6-11.4 59.5-73.2c-13.2-2.9-27.8-4.4-43.4-4.4c-4.8 0-9.6 .1-14.4 .4c-42.9 2.4-57.2 23.2-56.2 41.8l-.1 .1z"/></svg>
+        Threads
+      </a>
+      <a href="https://www.instagram.com/shellen" target="_blank" class="text-black hover:text-sky-600 flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+        </svg>
+        Instagram
+      </a>
+      <a href="https://xoxo.zone/@shellen" target="_blank" class="text-black hover:text-sky-600 flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 448 512">
+          <path d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54a102.5 102.5 0 0 1 -.9-13.9c85.6 20.9 158.7 9.1 178.8 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H90.2c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/>
+        </svg>
+        Mastodon
+      </a>
+      <a href="https://bsky.app/profile/shellen.com" target="_blank" class="text-black hover:text-sky-600 flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 576 512"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg>
+        Bluesky
+      </a>
+      <a href="https://www.linkedin.com/in/jasonshellen" target="_blank" class="text-black hover:text-sky-600 flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const fullScreenMenu = document.getElementById('full-screen-menu');
+
+  // Add a close button in your menu
+  const closeButton = document.createElement("button");
+  closeButton.id = "close-menu";
+  closeButton.textContent = "Close Menu";
+  closeButton.classList.add("absolute", "top-4", "right-4", "text-sky-950");
+  fullScreenMenu.appendChild(closeButton);
+
+  menuToggle?.addEventListener('click', () => {
+    fullScreenMenu.classList.remove('translate-x-full');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closeMenu = document.getElementById('close-menu');
+  closeMenu?.addEventListener('click', () => {
+    fullScreenMenu.classList.add('translate-x-full');
+    document.body.style.overflow = '';
+  });
+</script>

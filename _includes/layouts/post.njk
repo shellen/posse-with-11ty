@@ -1,0 +1,56 @@
+{% extends "base.njk" %}
+
+{% block content %}
+<article class="h-entry bg-white shadow-md rounded-lg p-6">
+  <h1 class="p-name text-3xl font-bold">{{ title }}</h1>
+  <time class="dt-published text-gray-500 block mb-4" datetime="{{ page.date }}">{{ page.date }}</time>
+  <div class="e-content text-gray-800">
+    {{ content | safe }}
+  </div>
+
+  <div class="p-author h-card mt-8 flex items-center space-x-4">
+    <img class="u-photo rounded-full w-16" src="{{ pkg.authorPhoto }}" alt="Photo of {{ pkg.authorName }}" />
+    <div>
+      <a class="p-name u-url font-semibold text-blue-600 hover:text-blue-800" href="{{ pkg.authorUrl }}">{{ pkg.authorName }}</a>
+      <address class="p-adr text-sm text-gray-600">
+        <span class="p-locality">{{ pkg.authorAdr.locality }}</span>,
+        <span class="p-region">{{ pkg.authorAdr.region }}</span>
+        <span class="p-country-name">{{ pkg.authorAdr.country }}</span>
+      </address>
+    </div>
+  </div>
+
+  {% if webmentions %}
+  <section class="mt-12">
+    <h2>Webmentions</h2>
+    {% set filteredMentions = webmentions | webmentionsByUrl(page.url) %}
+    {% if filteredMentions %}
+      {% set likes = filteredMentions | getLikes %}
+      {% set replies = filteredMentions | getReplies %}
+
+      {% if likes %}
+      <h3>Liked by:</h3>
+      <div class="flex space-x-2">
+        {% for like in likes %}
+        <a href="{{ like.author.url }}">
+          <img src="{{ like.author.photo }}" alt="{{ like.author.name }}" class="w-10 h-10 rounded-full" />
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if replies %}
+      <h3 class="mt-8">Replies:</h3>
+      {% for reply in replies %}
+      <div class="mt-4">
+        <h4>{{ reply.author.name }}</h4>
+        <p>{{ reply.content.html | safe }}</p>
+        <a href="{{ reply.url }}" class="text-blue-600 hover:text-blue-800">View Reply</a>
+      </div>
+      {% endfor %}
+      {% endif %}
+    {% endif %}
+  </section>
+  {% endif %}
+</article>
+{% endblock %}

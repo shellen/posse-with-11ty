@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title | default("Jason's Notes") }}</title>
+
+    <!-- Metadata links -->
+    <link rel="micropub" href="https://{{ pkg.projectDomain }}/.netlify/functions/micropub" />
+    <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+    <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+    <link rel="me" href="{{ pkg.authorGitHubUrl }}" />
+    <link rel="webmention" href="https://webmention.io/{{ pkg.projectDomain }}/webmention" />
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans leading-relaxed">
+    <header class="bg-white shadow">
+      <div class="container mx-auto flex justify-between items-center p-6">
+        <div class="flex items-center space-x-4">
+          <img
+            class="u-photo rounded-full w-16 h-16"
+            src="{{ pkg.authorPhoto }}"
+            alt="photo of {{ pkg.authorName }}" />
+          <div>
+            <a class="text-2xl font-bold text-blue-600 hover:text-blue-800" href="{{ pkg.authorUrl }}">
+              {{ pkg.authorName }}
+            </a>
+            <address class="text-sm text-gray-600">
+              <span>{{ pkg.authorAdr.locality }}</span>,
+              <span>{{ pkg.authorAdr.region }}</span>,
+              <span>{{ pkg.authorAdr.country }}</span>
+            </address>
+          </div>
+        </div>
+        <nav>
+          <a href="/" class="text-gray-700 hover:text-gray-900">Home</a>
+          <a href="/about" class="ml-4 text-gray-700 hover:text-gray-900">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto mt-12">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+      <div class="container mx-auto text-center">
+        <p>&copy; {{ currentYear }} {{ pkg.authorName }}. All rights reserved.</p>
+        <div class="mt-4">
+          <a href="{{ pkg.authorGitHubUrl }}" class="text-gray-400 hover:text-white">GitHub</a>
+          <span class="mx-2">|</span>
+          <a href="{{ pkg.authorUrl }}" class="text-gray-400 hover:text-white">Website</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

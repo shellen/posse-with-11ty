@@ -1,0 +1,32 @@
+---
+title: "Home"
+eleventyNavigation:
+  key: "Home"
+  order: 1
+---
+
+{% extends "../_includes/layouts/base.njk" %}
+
+{% block content %}
+<div class="latest-posts mt-12">
+  {% for post in collections.latestPosts %}
+  <article class="mx-auto max-w-4xl pb-12 border-b border-gray-300">
+    <header class="mb-8">
+      <h2 class="mt-6 text-3xl font-extrabold text-sky-800 md:text-5xl">
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+      </h2>
+      <div class="mt-4 flex items-center justify-between text-sm text-gray-500">
+        <p><a href="/about/" class="hover:text-sky-500">{{ post.data.author }}</a></p>
+        <p>{{ post.date | formatPostDate }}</p>
+      </div>
+    </header>
+    <div class="prose prose-lg max-w-none">{{ post.templateContent | safe }}</div>
+  </article>
+  {% endfor %}
+
+  {% set morePosts = collections.posts | length - collections.latestPosts | length %}
+  {% if morePosts > 0 %}
+    <p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} in <a href="/blog/">the archive</a>.</p>
+  {% endif %}
+</div>
+{% endblock %}
